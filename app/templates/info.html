@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Інформація</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Привіт, {{ username }}!</h1>
+        <form method="POST" action="/logout">
+            <input type="submit" value="Вийти">
+        </form>
+        <br>
+        <h2>Керування Cookies</h2>
+        <form method="POST" action="/add_cookie">
+            <input type="text" name="key" placeholder="Ключ куки">
+            <input type="text" name="value" placeholder="Значення куки">
+            <input type="text" name="expiry" placeholder="Термін дії (секунди)">
+            <input type="submit" value="Додати куки">
+        </form>
+        <form method="POST" action="/delete_cookie">
+            <input type="text" name="key" placeholder="Ключ куки для видалення">
+            <input type="submit" value="Видалити куки за ключем">
+        </form>
+        <form method="POST" action="/delete_all_cookies">
+            <input type="submit" value="Видалити всі куки">
+        </form>
+        <br>
+        <h2>Cookies</h2>
+        <table>
+            <tr>
+                <th>Ключ</th>
+                <th>Значення</th>
+                <th>Термін дії</th>
+                <th>Створено</th>
+            </tr>
+            {% for cookie in cookies %}
+                <tr>
+                    <td>{{ cookie.key }}</td>
+                    <td>{{ cookie.value }}</td>
+                    <td>{{ cookie.expiry }}</td>
+                    <td>{{ cookie.created_at }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <h2>Змінити пароль</h2>
+        <form method="POST" action="/change_password">
+            <input type="password" name="new_password" placeholder="Новий пароль">
+            <input type="submit" value="Змінити пароль">
+        </form>
+    </div>
+</body>
+</html>
